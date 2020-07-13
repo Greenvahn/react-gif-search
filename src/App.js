@@ -9,21 +9,26 @@ export default class App extends Component {
     super();
     this.state = {
       gifs: [],
+      loading: true
     };
   }
 
-  componentDidMount() {
-    // fetch ('http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC') // trending end-point
-    //   .then(response => response.json())
-    //   .then(responData => {
-    //     this.setState({gifs: responData.data });
-    //   })
-    //   .catch(error => {
-    //     console.log('Error fetching and parsing data', error );
-    //   })
+  // componentDidMount() {
+  //   fetch ('http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC') // trending end-point
+  //     .then(response => response.json())
+  //     .then(responData => {
+  //       this.setState({gifs: responData.data });
+  //     })
+  //     .catch(error => {
+  //       console.log('Error fetching and parsing data', error );
+  //     })
+  // }
+
+  componentDidMount() { 
+    this.performSearch();
   }
 
-  performSearch = (query) => {
+  performSearch = (query = 'woot') => {
      //.get("http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC") // trending end-point
 
      // ****** search end-point
@@ -34,6 +39,7 @@ export default class App extends Component {
       .then((response) => {
         this.setState({
           gifs: response.data.data,
+          loading: false
         });
       })
       .catch((error) => {
@@ -52,7 +58,9 @@ export default class App extends Component {
           </div>
         </div>
         <div className="main-content">
-          <GifList data={this.state.gifs} />
+          {
+            (this.state.loading) ? <p>Loading...</p> : <GifList data={this.state.gifs} />
+          }
         </div>
       </div>
     );
