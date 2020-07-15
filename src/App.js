@@ -28,7 +28,7 @@ export default class App extends Component {
     this.performSearch();
   }
 
-  performSearch = (query = 'woot') => {
+  performSearch = (query = 'hello') => {
      //.get("http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC") // trending end-point
 
      // ****** search end-point
